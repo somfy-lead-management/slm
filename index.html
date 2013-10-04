@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Somfy Lead Management</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        
+        <link rel="stylesheet" href="css/jquery.mobile.css">
+        <link rel="stylesheet" href="css/app.css">
+
+        <!-- Fix for scrolling on iOS prior to iOS 6 -->
+        <style type="text/css">
+            .scrollable > * {
+                -webkit-transform: translateZ(0px);
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" id="page" class="login">
+            
+            <div data-theme="d" data-role="header"  data-position="fixed">
+                <div id="logout" data-theme="c" data-role="button" class="ui-mini hidden" >
+                    <a href="index.html"></a>
+                </div>
+                <div class="logo-contain">
+                    <div class="logo"></div>
+                </div>
+                <div id="wrap-filters"></div>
+            </div>
+            <div id="search-box"></div>
+            <div data-role="content" id="wrap-content">
+	         </div>
+	    </div>
+      
+        <script>
+            // this script must run *BEFORE* the document is done loading
+            (function () {
+                var isAndroid       = navigator.userAgent.match(/Android/);
+                var isiOS           = navigator.userAgent.match(/(iPhone|iPod|iPad)/);
+                var androidScripts  = ["scripts/libs/cordova-android.js", "scripts/plugins/PushNotification.js"];
+                var iosScripts      = ["scripts/libs/cordova-ios.js", "scripts/plugins/PushNotification.js"];
+
+                if (isAndroid) androidScripts.forEach(loadScript);
+                if (isiOS) iosScripts.forEach(loadScript);
+
+                function loadScript(src) {
+                    var line = '<script type="text/javascript" src="' + src + '">' + "</" + "script>";                        
+                    document.writeln(line);
+                };
+
+           })();
+        </script>  
+
+        <!-- data-main attribute tells require.js to load scripts/main.js after require.js loads. -->
+        <script data-main="scripts/app" src="scripts/libs/require.js"></script>
+
+        <!-- Inline templates -->
+
+        <!-- Login country SELECT -->
+        <script type="text/template" class="countryOptions">
+            <% _.each(countries, function(country) { %>
+            <option value="<%- country.cc %>"><%- country.name %></option>
+            <% }); %>
+        </script>
+        
+        <!-- Lead list UL -->
+        <script type="text/template" class="leadlist">
+            <ul id="leads-list" data-role="listview" data-divider-theme="c" data-inset="true" class="ui-listview list">
+            </ul>
+        </script>
+    </body>
+</html>

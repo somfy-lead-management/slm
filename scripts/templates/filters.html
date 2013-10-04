@@ -1,0 +1,23 @@
+<% if (globalUser.isSalesRep()) { %>
+<div data-theme="a" data-role="navbar" class="ui-navbar ui-mini only-srep filter-bar" role="navigation" >
+    <div data-role="navbar" data-iconpos="left" class="nav-box">
+        <ul>
+            <li class="filter all first-item"><a href="#" class="ui-btn-active"> <%= _.label("mobile.status.all") %></a></li>
+            <li class="filter not  second-item"><a href="#"><%= _.label("mobile.status.toassign") %></a></li>
+            <li class="filter assigned third-item assigned" ><a href="#"> <%= _.label("mobile.status.assigned") %></a></li>
+            <li class="filter refused fourth-item"><a href="#"> <%= _.label("mobile.status.refused") %></a></li>
+        </ul>
+    </div>
+</div>
+<% } else { %>
+<div data-theme="a" data-role="navbar" class="ui-navbar ui-mini only-cust filter-bar" role="navigation" >
+    <div data-role="navbar" data-iconpos="left" class="nav-box">
+        <ul>
+            <li class="filter all first-item "><a href="#" class="ui-btn-active"> <%= _.label("mobile.status.all") %></a></li>
+            <li class="filter new second-item"><a href="#"> <%= _.label("mobile.status.new") %></a></li>
+            <li class="filter accepted third-item"><a href="#"> <%= _.label("mobile.status.accepted") %></a></li>
+            <li class="filter closed fourth-item"><a href="#"> <%= _.label("mobile.status.closed") %></a></li>
+        </ul>
+    </div>
+</div>
+<% } %> 

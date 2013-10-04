@@ -1,0 +1,19 @@
+<li  id="p<%=project_id%>"  data-theme="d" class="<%= filterStatus %>">
+     <a href="#" data-transition="slide" data-id="<%=project_id%>" class="lead-details">
+		<span class="date"><%= _.formatDate(project.creation_date, true) %></span>
+		<span class="leadInfo"><% if(filterStatus == 'new') { %><span class="leadStatus"><%= filterStatus %> - </p><% } %><%=enduser.firstname%> <%=enduser.lastname%> (<%=project_id%>)<br><%=project.zip%> <%=project.city%></span>
+		<br />
+		<span class="type">
+			<% _.each(project.apps, function(app) { %>
+                <%= app.name %> (<%= app.productCount %>)
+            <% }); %> &nbsp;
+		</span>
+		<span class="resume"><br/><%=project.description%></span>
+		<div class="dealersContainer only-srep">
+			<% _.each(leads, function(lead) { %>
+					<span class="dealerstatus <%=lead.filterStatus%>"><%=lead.customer.id%> <%=lead.customer.name%><% if(lead.customer.zip != '' || lead.customer.city != '') { %> - <%=lead.customer.zip%> <%=lead.customer.city%><% } %> 
+					</span>
+			<% }); %>
+		</div>
+    </a>
+</li>

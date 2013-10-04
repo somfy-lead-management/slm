@@ -1,0 +1,293 @@
+<div id="item-detail" data-role="content" role="main" class="all-content ui-content">
+    <div class="sub_content">
+        <h4><%=leads[0].status%>(<%=project_id%>) - <%=project.zip%> <%=project.city%></h4>
+        <strong>
+            <% _.each(project.apps, function(app) { %>
+                <%= app.name %> <span class="productCount"><%= app.productCount %></span>
+            <% }); %>
+        </strong>
+        <p><%=project.description%></p>
+    </div>
+
+    <div data-role="navbar" data-iconpos="right" class="nav-box" >
+        <ul class="only-cust toolbar-cust unassigned">
+            <li class="back-item" > 
+                <a href="#" class="back">
+                    <span class="btn-border"><%= _.label("mobile.actions.back") %></span>
+                </a>
+            </li>
+            <li class="accept-item accept" >
+                <a href="#"  class="accept">
+                    <span class="btn-border"> <%= _.label("actions.acceptlead") %></span>
+                </a>
+            </li>
+            <li class="accept-item" data-iconpos="top">
+                <a href="#" class="refuse">
+                    <span class="btn-border"> <%= _.label("actions.refuselead") %></span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="only-cust toolbar-cust accepted hidden">
+            <li class="back-item" > 
+                <a href="#" class="back">
+                    <span class="btn-border"><%= _.label("mobile.actions.back") %></span>
+                </a>
+            </li>
+            <% if(status_id != 4 && status_id != 5) { %>
+            <li class="accept-item accept" >
+                <a href="#"  class="refuse">
+                    <span class="btn-border"><%= _.label("giveleadbacktosomfy") %></span>
+                </a>
+            </li>
+            <li class="accept-item accept" data-iconpos="top">
+                <a class="close" href="#closeLeadPopup">
+                    <span class="btn-border"> <%= _.label("mobile.actions.close") %></span>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+
+        <!-- Sales-Rep ToolBar -->
+        <ul class="only-srep toolbar-srep list">
+            <li class="back-item" > 
+                <a href="#" class="back">
+                    <span class="btn-border"><%= _.label("mobile.actions.back") %></span>
+                </a>
+            </li>
+            
+            <% if(status_id != 4) { %>
+            <li class="accept-item assign" >
+                <a href="#"  class="assign">
+                    <span class="btn-border"><%= _.label("mobile.actions.assign") %></span>
+                </a>
+            </li>
+            <% } %>
+
+        </ul>
+        <!-- Sales-Rep ToolBar assign -->
+        <ul class="only-srep toolbar-srep assign hidden">
+            <li class="back-item" > 
+                <a href="#" class="backtodetail">
+                    <span class="btn-border"><%= _.label("mobile.actions.back") %></span>
+                </a>
+            </li>
+            <li class="accept-item assign" >
+                <a href="#"  class="assign">
+                    <span class="btn-border"><%= _.label("mobile.actions.assignToSelected") %></span>
+                </a>
+            </li>
+        </ul>
+        <div id="customerSearch" class="only-srep"></div>
+    </div>
+    
+
+    <div class="project-leads details_plus only-srep">
+
+        <div class="bar-separation dossier">
+            <span><%= _.label("mobile.header.dealers") %></span>
+        </div> 
+
+
+        <% _.each(leads, function(lead) { %>
+            <% if(lead.customer.id != '') { %>
+                <div class="sub_content adress">
+                    <strong><%= lead.customer.id%> <%= lead.customer.name%> <span class="<%= lead.status%>"><%= lead.status%></span></strong>
+                    <p>
+                        <span><%= lead.customer.address%></span>
+                        <span><%= lead.customer.zip%> <%= lead.customer.city%></span>
+                        <span><%= lead.customer.phone%></span>
+                    </p>
+                </div>
+                <div data-role="navbar" data-iconpos="right" class="nav-box gris">
+                    <ul>
+                        <li class="back-item" >
+                            <a href="#" data-id="<%= lead.lead_id%>" class="commentSalesRep"><span class="btn-border"><%= _.label("addcomment") %></span></a>
+                        </li>
+                        <% if (lead.status_id == 4 || lead.status_id == 5) { %>
+                            <li class="back-item hidden" > 
+                        <% }  else { %>
+                            <li class="back-item" > 
+                        <% } %>
+                            <a href="#" data-id="<%= lead.lead_id%>" data-custId="<%= lead.customer.id%>" class="close"><span class="btn-border"><%= _.label("mobile.actions.close") %></span></a>
+                        </li>  
+                    </ul>
+                 </div><!-- /navbar -->
+             <% } %>
+        <% }); %>           
+    </div>
+
+    <!-- project detail -->
+
+    <div class="project-detail">
+        <div class="bar-separation dossier">
+            <span><%= _.label("pro.project.header") %></span>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("projectid") %></div>
+            <div class="ui-block-b"><%=project.id%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("application") %></div>
+            <div class="ui-block-b">
+                <% _.each(project.apps, function(app) { %>
+                    <%= app.name %> (<%= app.productCount %>)
+                <% }); %>
+            </div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("projectlocation") %></div>
+            <div class="ui-block-b"><%=project.city%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("project") %></div>
+            <div class="ui-block-b"><%=project.project_concerns%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("mobile.buildingtype") %></div>
+            <div class="ui-block-b"><%=project.building_type%></div>
+        </div>
+        <div class="ui-grid-a only-cust">
+            <div class="ui-block-a"><%= _.label("mobile.project_description") %></div>
+            <div class="ui-block-b"><%=project.description%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("project_qualification") %></div>
+            <div class="ui-block-b"><%=project.qualification%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("mobile.project.creation_date") %></div>
+            <div class="ui-block-b"><%= dateFormat(project.creation_date, "dd.mm.yyyy") %></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("mobile.project.realisation_date") %></div>
+            <div class="ui-block-b"><%= dateFormat(project.start_date, "dd.mm.yyyy") %></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("status") %></div>
+            <div class="ui-block-b upper-bold"><%=leads[0].status%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("leadassignedondate") %></div>
+            <div class="ui-block-b"><%= _.formatDate(_.getMinDate(leads, "creation_date")) %></div>
+         </div>
+         <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("leadaccepteddate") %></div>
+            <div class="ui-block-b"><%= _.formatDate(_.getMinDate(leads, "accepted_date")) %></div>
+         </div>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("requestedquotes") %></div>
+            <div class="ui-block-b"><%=quotes_requested%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("receivedquotes") %></div>
+            <div class="ui-block-b"><%=quotes_received%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("mobile.project.createdby") %></div>
+            <div class="ui-block-b"><%=project.created_by%></div>
+        </div>
+    </div>
+    
+    <div class="project-comments">
+        <div class="bar-separation dossier">
+            <span><%= _.label("comments") %></span>
+            <span class="accept-item comment only-cust" data-iconpos="top">
+                <a href="#" class="add-comment"><span class="btn-border"><%= _.label("addcomment") %></span></a>
+            </span>
+        </div>
+        <% _.each(leads, function(lead) { %>
+            <% _.each(lead.comments, function(comment) { %>
+                <div class="sub_content">
+                    <span class="author"><%= comment.by%></span><span class="date"><%= _.formatDate(comment.date) %></span>
+                    <p><%= comment.text %></p>
+                </div>
+            <% }); %>
+        <% }); %>
+    </div>
+    
+    <div class="project-enduser hidden">
+        <div class="bar-separation dossier">
+            <span><%= _.label("pro.conso.header") %> </span>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.lastname") %></div>
+            <div class="ui-block-b"><%=enduser.lastname%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.firstname") %></div>
+            <div class="ui-block-b"><%=enduser.firstname%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.company") %></div>
+            <div class="ui-block-b"><%=enduser.companyname%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.address") %></div>
+            <div class="ui-block-b"><%=enduser.address_1%><br /><%=enduser.zipcode%> <%=enduser.city%><br /><%=enduser.country%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.email") %></div>
+            <div class="ui-block-b"><%=enduser.email%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.fixphone") %></div>
+            <div class="ui-block-b"><%=enduser.fixphone%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.mobilephone") %></div>
+            <div class="ui-block-b"><%=enduser.mobilephone%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("ownership") %></div>
+            <div class="ui-block-b"><%=enduser.ownership%></div>
+        </div>
+        <div class="ui-grid-a">
+            <div class="ui-block-a"><%= _.label("enduser.language") %></div>
+            <div class="ui-block-b"><%=enduser.languagecode%></div>
+        </div>
+    </div>
+
+    <div class="project-dealers hidden">
+        <!--  Dealers list -->
+    </div>  
+
+
+
+    <div  id="closeLeadPopup">
+        <ul>
+            <li>
+                <a class="action" href="#" data-id= "-1" data-role="button" data-inline="true" data-rel="dialog"><%= _.label("withsale") %></a>
+            </li>
+            <%= displayPanelData("close") %>
+            <li class="closePanel">
+                <a href="#" data-role="button"><%= _.label("mobile.actions.cancel") %></a>
+            </li>
+        </ul>
+    </div>
+
+    <div  id="refuseLeadPopup">
+        <ul>
+            <%= displayPanelData("refuse") %>
+            <li class="closePanel">
+                <a href="#" data-role="button"><%= _.label("mobile.actions.cancel") %></a>
+            </li>
+        </ul>
+    </div>
+
+    <div  id="commentLeadPopup">
+       <ul>
+            <li>
+                <textarea ></textarea>
+            </li>
+            <li>
+                <a class="comment" href="#" data-role="button"><%= _.label("addcomment") %></a>
+            </li>
+            <li class="closePanel">
+                <a href="#" data-role="button"><%= _.label("mobile.actions.cancel") %></a>
+            </li>
+       
+       </ul>
+    </div>
+</div>

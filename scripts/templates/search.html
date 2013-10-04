@@ -1,0 +1,9 @@
+<a id="refreshButton" class="hidden" href="#" data-role="button" data-corners="false" data-icon="refresh"><%= _.label('mobile.actions.refresh') %></a>
+
+<% if (App.isOnline()) { %>
+<div data-role="fieldcontain" class="search">
+	<form id="searchform" action="#">
+		<input name="" id="searchinput1" placeholder="<%= _.label('mobile.dealers.search') %>" value="" type="search" />
+	</form>
+</div>
+<% } %>

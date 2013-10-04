@@ -1,0 +1,24 @@
+<form>
+	<div data-role="fieldcontain" id="retina">
+		<select id="login-countrycode" name="login-countrycode" data-mini="true">
+			<option value=""><%= _.label("mobile.select_country") %></option>
+		</select>
+	</div>
+	<div data-role="fieldcontain">
+		<input autocapitalize="off" autocorrect="off" name="login-username" id="login-username" placeholder="<%= _.label('mobile.login') %>" value="wa.dagher" data-mini="true" type="text">
+	</div>
+	<div data-role="fieldcontain">
+		<input name="login-password" id="login-password" placeholder="<%= _.label('mobile.password') %>" value="svwiowpf" data-mini="true" type="password">
+	</div>
+	<!-- 
+	<a data-role="button" data-inline="true" data-transition="fade" href="#popupBasic" class="btn-login" data-rel="popup"> </a>
+
+	 -->
+	<br> <a data-role="button" data-inline="true" data-transition="fade" class="btn-login" data-rel="popup" ></a>
+		
+	<br />
+	<%= _.label('mobile.support_information') %>
+	<div data-role="popup" id="popupLoginError">
+		<p><%= _.label('mobile.login.error') %>.<p>
+	</div>
+</form>

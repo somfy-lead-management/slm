@@ -1,0 +1,14 @@
+<div class="project-dealers hidden">
+	<% _.each(dealers[0].result.DEALERS, function(dealer) { %>
+	<div class="ui-grid-b">
+		<div class="ui-block-a icon"></div>
+		<div class="ui-block-b adress">
+			<strong><%=dealer.name%></strong><br><%=dealer.phone%><br>
+			<%=dealer.zipcode%> <strong><%=dealer.city%></strong>
+		</div>
+		<div class="ui-block-c direction">
+			<img src="img/direction.png" /><br> <span><%=dealer.distance%></span>
+		</div>
+	</div>
+	<% }); %>
+</div>
